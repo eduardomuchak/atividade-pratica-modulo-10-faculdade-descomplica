@@ -18,7 +18,6 @@ import Modal from "@mui/material/Modal";
 import CriarTarefa from "./CriarTarefa";
 import EditarTarefa from "./EditarTarefa";
 
-//A função abaixo é usada para criar o array contendo os dados iniciais da listagem de tarefas.
 function createData(
   idTarefa,
   tituloTarefa,
@@ -39,7 +38,6 @@ function createData(
   };
 }
 
-//Definição do array contendo os dados iniciais da listagem de tarefas
 const initialRows = [
   createData(
     1,
@@ -97,7 +95,6 @@ const initialRows = [
   ),
 ];
 
-//Componente ListarTarefa
 const ListarTarefa = () => {
   const [open, setOpen] = useState(false);
   const [openEditar, setOpenEditar] = useState(false);
@@ -106,10 +103,8 @@ const ListarTarefa = () => {
   const [idTarefaSelecionada, setIdTarefaSelecionada] = useState([]);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
-  const handleOpenEditar = () => setOpenEditar(true);
   const handleCloseEditar = () => setOpenEditar(false);
 
-  //O array definido acima é setado como conteúdo do state Tarefas na renderização inicial do componente.
   useEffect(() => {
     setTarefas(initialRows);
   }, []);
@@ -117,15 +112,12 @@ const ListarTarefa = () => {
   const handleEditar = (id) => {
     setIdTarefaSelecionada(id);
 
-    //Objeto local para armazenamento da tarefa filtrada de acordo com a seleção do usuário
     let tarefaParaEditar = tarefas.filter((obj) => {
       return obj.idTarefa === id;
     })[0];
 
-    //Atribuição do Objeto local, setado acima, ao state Tarefa
     setTarefa(tarefaParaEditar);
 
-    //Seta como true o state responsável pela exibição do Model de Editar Tarefa
     setOpenEditar(true);
   };
 

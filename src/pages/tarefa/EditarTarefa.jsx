@@ -1,16 +1,18 @@
 import React, { useState, useEffect } from "react";
-import { FormControl, InputLabel, Input, FormHelperText } from "@mui/material";
+import {
+  FormControl,
+  InputLabel,
+  FormHelperText,
+  TextField,
+} from "@mui/material";
 import MenuItem from "@mui/material/MenuItem";
 import Select from "@mui/material/Select";
 import Grid from "@mui/material/Grid";
 import Card from "@mui/material/Card";
 import CardHeader from "@mui/material/CardHeader";
 import CardContent from "@mui/material/CardContent";
-import CardActions from "@mui/material/CardActions";
 import Button from "@mui/material/Button";
 
-//Declaração do componente EditarTarefa, recebendo como props, do Componente ListarTarefa, os states handCloseEditar,
-// idTarefaSelecionada, tarefas, tarefa e setTarefas
 const EditarTarefa = ({
   handleCloseEditar,
   idTarefaSelecionada,
@@ -26,10 +28,7 @@ const EditarTarefa = ({
   const [recursoTarefa, setRecursoTarefa] = useState("");
   const [statusTarefa, setStatusTarefa] = useState("");
 
-  //Abaixo setamos os valores dos states (que popularão o formulário mais abaixo) com os valores do state Tarefa,
-  //  recebido como props do componente ListarTarefa.
   useEffect(() => {
-    //console.log('Tarefa selecionada: ' + JSON.stringify(tarefa));
     setIdTarefa(idTarefaSelecionada);
     setTituloTarefa(tarefa.tituloTarefa);
     setDescricaoTarefa(tarefa.descricaoTarefa);
@@ -49,8 +48,6 @@ const EditarTarefa = ({
   };
 
   const handleEditar = () => {
-    //console.log(`id: ${idTarefa} \n titulo: ${tituloTarefa} \n descrição: ${descricaoTarefa} \n inicio: ${inicioTarefa} \n fim: ${fimTarefa} \n recurso: ${recursoTarefa} \n status: ${statusTarefa}`);
-    //console.log('idTarefaSelecionada: ' + idTarefaSelecionada);
     setTarefas((current) =>
       current.map((obj) => {
         if (obj.idTarefa === idTarefaSelecionada) {
@@ -71,7 +68,6 @@ const EditarTarefa = ({
       }),
     );
 
-    //console.log(`Tarefas Editadas: ` + JSON.stringify(tarefas));
     handleCloseEditar();
   };
 
@@ -85,24 +81,42 @@ const EditarTarefa = ({
             maxWidth: "100%",
           }}
         >
-          <Grid item xs={12}>
-            <FormControl fullWidth>
-              <Input
-                id="tarefa_titulo"
-                aria-describedby="tarefa_titulo_helper_text"
-                value={tituloTarefa}
-                onChange={(e) => {
-                  setTituloTarefa(e.target.value);
-                }}
-              />
-              <FormHelperText id="tarefa_titulo_helper_text">
-                Título da Tarefa.
-              </FormHelperText>
-            </FormControl>
+          <Grid container spacing={2}>
+            <Grid item xs={2}>
+              <FormControl fullWidth>
+                <TextField
+                  placeholder="ID"
+                  id="id_tarefa"
+                  aria-describedby="id_tarefa_helper_text"
+                  value={idTarefa}
+                  disabled
+                />
+                <FormHelperText id="tarefa_titulo_helper_text">
+                  ID.
+                </FormHelperText>
+              </FormControl>
+            </Grid>
+            <Grid item xs={10}>
+              <FormControl fullWidth>
+                <TextField
+                  placeholder="Título da Tarefa"
+                  id="tarefa_titulo"
+                  aria-describedby="tarefa_titulo_helper_text"
+                  value={tituloTarefa}
+                  onChange={(e) => {
+                    setTituloTarefa(e.target.value);
+                  }}
+                />
+                <FormHelperText id="tarefa_titulo_helper_text">
+                  Título da Tarefa.
+                </FormHelperText>
+              </FormControl>
+            </Grid>
           </Grid>
           <Grid item xs={12}>
             <FormControl fullWidth>
-              <Input
+              <TextField
+                placeholder="Descrição da Tarefa"
                 id="tarefa_descricao"
                 aria-describedby="tarefa_descricao_helper_text"
                 value={descricaoTarefa}
@@ -116,9 +130,10 @@ const EditarTarefa = ({
             </FormControl>
           </Grid>
           <Grid container spacing={2} mt={1}>
-            <Grid item xs={3}>
+            <Grid>
               <FormControl>
-                <Input
+                <TextField
+                  placeholder="Início da Tarefa"
                   id="tarefa_inicio"
                   type="date"
                   aria-describedby="tarefa_inicio_helper_text"
@@ -137,9 +152,10 @@ const EditarTarefa = ({
                 </FormHelperText>
               </FormControl>
             </Grid>
-            <Grid item xs={3}>
+            <Grid>
               <FormControl>
-                <Input
+                <TextField
+                  placeholder="Fim da Tarefa"
                   id="tarefa_fim"
                   type="date"
                   aria-describedby="tarefa_fim_helper_text"
@@ -158,7 +174,7 @@ const EditarTarefa = ({
                 </FormHelperText>
               </FormControl>
             </Grid>
-            <Grid item xs={3}>
+            <Grid item xs={6}>
               <FormControl fullWidth>
                 <InputLabel htmlFor="tarefa_recurso">Recurso</InputLabel>
                 <Select
@@ -166,7 +182,7 @@ const EditarTarefa = ({
                   value={recursoTarefa}
                   label="Recurso"
                   onChange={handleRecurso}
-                  size="small"
+                  size="medium"
                   sx={{
                     color: "rgba(0, 0, 0, 0.6)",
                     fontWeight: 400,
@@ -178,7 +194,7 @@ const EditarTarefa = ({
                 </Select>
               </FormControl>
             </Grid>
-            <Grid item xs={3}>
+            <Grid item xs={6}>
               <FormControl fullWidth>
                 <InputLabel htmlFor="tarefa_recurso">Status</InputLabel>
                 <Select
@@ -186,7 +202,7 @@ const EditarTarefa = ({
                   value={statusTarefa}
                   label="Status"
                   onChange={handleStatus}
-                  size="small"
+                  size="medium"
                   sx={{
                     color: "rgba(0, 0, 0, 0.6)",
                     fontWeight: 400,
@@ -198,13 +214,13 @@ const EditarTarefa = ({
                 </Select>
               </FormControl>
             </Grid>
-            <Grid container spacing={2} pl={2} mt={2}>
-              <Grid item xs={1}>
+            <Grid container spacing={2} mt={2}>
+              <Grid item>
                 <Button size="small" variant="contained" onClick={handleEditar}>
                   Salvar
                 </Button>
               </Grid>
-              <Grid item xs={1}>
+              <Grid item>
                 <Button
                   size="small"
                   variant="outlined"

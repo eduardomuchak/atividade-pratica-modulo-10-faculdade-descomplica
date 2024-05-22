@@ -5,7 +5,7 @@ import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
 import IconButton from "@mui/material/IconButton";
-//import MenuIcon from '@mui/icons-material/Menu';
+import MenuIcon from "@mui/icons-material/Menu";
 
 function Header() {
   return (
@@ -16,16 +16,15 @@ function Header() {
             size="large"
             edge="start"
             color="inherit"
-            aria-label="menu"
+            aria-label="open menu"
             sx={{ mr: 2 }}
           >
-            {/*  
-              <MenuIcon />
-              */}
+            <MenuIcon />
           </IconButton>
           <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
             Gerenciamento de Projetos
           </Typography>
+          <Button color="inherit">Logout</Button>
         </Toolbar>
       </AppBar>
     </Box>
